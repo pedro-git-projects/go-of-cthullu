@@ -129,6 +129,90 @@ func rollLuck() int {
 	return luck
 }
 
+func (i *Investigator) eduImprovementCheck() {
+	d100 := dice.Dice{dice.D100}
+	roll := d100.Roll()
+	tenthOfRoll := (roll / 10)
+	if roll > i.Edu && (i.Edu+tenthOfRoll <= 99) {
+		i.Edu += tenthOfRoll
+	}
+}
+
+func (i *Investigator) youngModifier() {
+	i.Str = i.Str - 2
+	i.Siz = i.Siz - 2
+}
+
+func (i *Investigator) fortiesModifier() {
+	i.Str = i.Str - 1
+	i.Con = i.Con - 2
+	i.Dex = i.Dex - 2
+	i.eduImprovementCheck()
+	i.eduImprovementCheck()
+}
+
+func (i *Investigator) fifthtiesModifier() {
+	i.Str = i.Str - 3
+	i.Con = i.Con - 3
+	i.Dex = i.Dex - 3
+	i.App = i.App - 10
+	i.eduImprovementCheck()
+	i.eduImprovementCheck()
+	i.eduImprovementCheck()
+}
+
+func (i *Investigator) sixtiesModifier() {
+	i.Str = i.Str - 7
+	i.Con = i.Con - 1
+	i.Dex = i.Dex - 7
+	i.App = i.Age - 15
+	i.eduImprovementCheck()
+	i.eduImprovementCheck()
+	i.eduImprovementCheck()
+	i.eduImprovementCheck()
+}
+
+func (i *Investigator) seventiesModifier() {
+	i.Str = i.Str - 13
+	i.Con = i.Con - 13
+	i.Dex = i.Dex - 13
+	i.App = i.App - 20
+	i.eduImprovementCheck()
+	i.eduImprovementCheck()
+	i.eduImprovementCheck()
+	i.eduImprovementCheck()
+}
+
+func (i *Investigator) eightiesModifier() {
+	i.Str = i.Str - 13
+	i.Con = i.Con - 13
+	i.Dex = i.Dex - 13
+	i.App = i.App - 25
+	i.eduImprovementCheck()
+	i.eduImprovementCheck()
+	i.eduImprovementCheck()
+	i.eduImprovementCheck()
+}
+
+func (i *Investigator) AccountForModifiers() {
+	switch i.Age >= 15 {
+	case i.Age >= 15 && i.Age <= 19:
+		i.youngModifier()
+	case i.Age >= 20 && i.Age <= 39:
+		i.eduImprovementCheck()
+	case i.Age >= 40 && i.Age <= 49:
+		i.fortiesModifier()
+	case i.Age >= 50 && i.Age <= 59:
+		i.fifthtiesModifier()
+	case i.Age >= 60 && i.Age <= 69:
+		i.sixtiesModifier()
+	case i.Age >= 70 && i.Age <= 79:
+		i.seventiesModifier()
+	case i.Age >= 80:
+		i.eightiesModifier()
+	}
+}
+
 func PrintInvestigator(i Investigator) {
 	fmt.Printf("Your name is %s\n", i.Name)
 	fmt.Printf("Your age is %d\n", i.Age)
