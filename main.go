@@ -15,8 +15,9 @@ func main() {
 	pedro.SetResidence("New York")
 	pedro.SetOccupation("Investigator")
 	investigators.PrintInvestigator(pedro)
-	pedro.AccountForModifiers()
+	pedro.AccountForAgeModifiers()
 	fmt.Println()
 	fmt.Println()
 	investigators.PrintInvestigator(pedro)
+
 }

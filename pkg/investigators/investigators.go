@@ -11,6 +11,7 @@ type Investigator struct {
 	Age          int
 	Residence    string
 	Birthplace   string
+	Occupation   string
 	Str          int
 	Con          int
 	Pow          int
@@ -24,7 +25,7 @@ type Investigator struct {
 	Db           int
 	Hp           int
 	San          int
-	Occupation   string
+	Mv           int
 	CreditRating int
 }
 
@@ -41,6 +42,7 @@ func (i *Investigator) DetermineCharacteristics() {
 	i.Int = rollInt()
 	i.Edu = rollEdu()
 	i.Luck = rollLuck()
+	i.setMoveRate()
 }
 
 func (i *Investigator) SetName(name string) {
@@ -73,6 +75,16 @@ func (i *Investigator) setMp() {
 
 func (i *Investigator) setHp() {
 	i.Hp = (i.Siz + i.Con) / 10
+}
+
+func (i *Investigator) setMoveRate() {
+	if i.Dex < i.Siz && i.Str < i.Siz {
+		i.Mv = 7
+	} else if i.Str >= i.Siz || i.Dex >= i.Siz {
+		i.Mv = 8
+	} else if i.Str > i.Siz && i.Dex > i.Siz {
+		i.Mv = 9
+	}
 }
 
 func rollStr() int {
@@ -147,6 +159,7 @@ func (i *Investigator) fortiesModifier() {
 	i.Str = i.Str - 1
 	i.Con = i.Con - 2
 	i.Dex = i.Dex - 2
+	i.Mv = i.Mv - 1
 	i.eduImprovementCheck()
 	i.eduImprovementCheck()
 }
@@ -156,6 +169,7 @@ func (i *Investigator) fifthtiesModifier() {
 	i.Con = i.Con - 3
 	i.Dex = i.Dex - 3
 	i.App = i.App - 10
+	i.Mv = i.Mv - 2
 	i.eduImprovementCheck()
 	i.eduImprovementCheck()
 	i.eduImprovementCheck()
@@ -166,6 +180,7 @@ func (i *Investigator) sixtiesModifier() {
 	i.Con = i.Con - 1
 	i.Dex = i.Dex - 7
 	i.App = i.Age - 15
+	i.Mv = i.Mv - 3
 	i.eduImprovementCheck()
 	i.eduImprovementCheck()
 	i.eduImprovementCheck()
@@ -177,6 +192,7 @@ func (i *Investigator) seventiesModifier() {
 	i.Con = i.Con - 13
 	i.Dex = i.Dex - 13
 	i.App = i.App - 20
+	i.Mv = i.Mv - 4
 	i.eduImprovementCheck()
 	i.eduImprovementCheck()
 	i.eduImprovementCheck()
@@ -188,13 +204,14 @@ func (i *Investigator) eightiesModifier() {
 	i.Con = i.Con - 13
 	i.Dex = i.Dex - 13
 	i.App = i.App - 25
+	i.Mv = i.Mv - 5
 	i.eduImprovementCheck()
 	i.eduImprovementCheck()
 	i.eduImprovementCheck()
 	i.eduImprovementCheck()
 }
 
-func (i *Investigator) AccountForModifiers() {
+func (i *Investigator) AccountForAgeModifiers() {
 	switch i.Age >= 15 {
 	case i.Age >= 15 && i.Age <= 19:
 		i.youngModifier()
@@ -218,6 +235,7 @@ func PrintInvestigator(i Investigator) {
 	fmt.Printf("Your age is %d\n", i.Age)
 	fmt.Printf("Your birthplace is %s\n", i.Birthplace)
 	fmt.Printf("Your residence  is %s\n", i.Residence)
+	fmt.Printf("Your occupation  is %s\n", i.Occupation)
 	fmt.Printf("Your strengh is %d\n", i.Str)
 	fmt.Printf("Your constitution is %d\n", i.Con)
 	fmt.Printf("Your power is %d\n", i.Pow)
@@ -231,6 +249,6 @@ func PrintInvestigator(i Investigator) {
 	fmt.Printf("Your damage bonus is %d\n", i.Db)
 	fmt.Printf("Your hit points are %d\n", i.Hp)
 	fmt.Printf("Your sanity is %d\n", i.San)
-	fmt.Printf("Your occupation  is %s\n", i.Occupation)
+	fmt.Printf("Your move rate is %d\n", i.Mv)
 	fmt.Printf("Your credit rating is %d\n", i.CreditRating)
 }
