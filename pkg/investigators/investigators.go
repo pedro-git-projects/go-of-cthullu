@@ -88,61 +88,61 @@ func (i *Investigator) setMoveRate() {
 }
 
 func rollStr() int {
-	d6 := dice.Dice{dice.D6}
+	d6 := dice.Dice{NumberOfSides: dice.D6}
 	str := (3 * d6.Roll()) * 5
 	return str
 }
 
 func rollCon() int {
-	d6 := dice.Dice{dice.D6}
+	d6 := dice.Dice{NumberOfSides: dice.D6}
 	con := (3 * d6.Roll()) * 5
 	return con
 }
 
 func rollDex() int {
-	d6 := dice.Dice{dice.D6}
+	d6 := dice.Dice{NumberOfSides: dice.D6}
 	dex := (3 * d6.Roll()) * 5
 	return dex
 }
 
 func rollApp() int {
-	d6 := dice.Dice{dice.D6}
+	d6 := dice.Dice{NumberOfSides: dice.D6}
 	app := (3 * d6.Roll()) * 5
 	return app
 }
 
 func rollPow() int {
-	d6 := dice.Dice{dice.D6}
+	d6 := dice.Dice{NumberOfSides: dice.D6}
 	pow := (3 * d6.Roll()) * 5
 	return pow
 }
 
 func rollSiz() int {
-	d6 := dice.Dice{dice.D6}
+	d6 := dice.Dice{NumberOfSides: dice.D6}
 	siz := ((2*d6.Roll() + 6) * 5)
 	return siz
 }
 
 func rollInt() int {
-	d6 := dice.Dice{dice.D6}
+	d6 := dice.Dice{NumberOfSides: dice.D6}
 	intelligence := ((2*d6.Roll() + 6) * 5)
 	return intelligence
 }
 
 func rollEdu() int {
-	d6 := dice.Dice{dice.D6}
+	d6 := dice.Dice{NumberOfSides: dice.D6}
 	edu := ((2*d6.Roll() + 6) * 5)
 	return edu
 }
 
 func rollLuck() int {
-	d6 := dice.Dice{dice.D6}
+	d6 := dice.Dice{NumberOfSides: dice.D6}
 	luck := (3 * d6.Roll()) * 5
 	return luck
 }
 
 func (i *Investigator) eduImprovementCheck() {
-	d100 := dice.Dice{dice.D100}
+	d100 := dice.Dice{NumberOfSides: dice.D100}
 	roll := d100.Roll()
 	tenthOfRoll := (roll / 10)
 	if roll > i.Edu && (i.Edu+tenthOfRoll <= 99) {
@@ -150,37 +150,86 @@ func (i *Investigator) eduImprovementCheck() {
 	}
 }
 
+func isGreaterThanZero(status int, debuff int) bool {
+	if status-debuff >= 0 {
+		return true
+	}
+	return false
+}
+
+// finds the highest non-negative debuff value within range
+func findOptimumDebuff(maxDebuff int, status int) int {
+	dynamicDebuff := 0
+	for (dynamicDebuff <= maxDebuff) && (status-dynamicDebuff >= 0) {
+		dynamicDebuff++
+	}
+	// by one correction because of loop break
+	return dynamicDebuff - 1
+}
+
 func (i *Investigator) youngModifier() {
-	i.Str = i.Str - 2
-	i.Siz = i.Siz - 2
+	strDebuff := findOptimumDebuff(2, i.Str)
+	i.Str = i.Str - strDebuff
+
+	sizDebuff := findOptimumDebuff(2, i.Siz)
+	i.Siz = i.Siz - sizDebuff
 }
 
 func (i *Investigator) fortiesModifier() {
-	i.Str = i.Str - 1
-	i.Con = i.Con - 2
-	i.Dex = i.Dex - 2
-	i.Mv = i.Mv - 1
+	strDebuff := findOptimumDebuff(1, i.Str)
+	i.Str = i.Str - strDebuff
+
+	conDebuff := findOptimumDebuff(2, i.Con)
+	i.Con = i.Con - conDebuff
+
+	dexDebuff := findOptimumDebuff(2, i.Dex)
+	i.Dex = i.Dex - dexDebuff
+
+	mvDebuff := findOptimumDebuff(1, i.Mv)
+	i.Mv = i.Mv - mvDebuff
+
 	i.eduImprovementCheck()
 	i.eduImprovementCheck()
 }
 
 func (i *Investigator) fifthtiesModifier() {
-	i.Str = i.Str - 3
-	i.Con = i.Con - 3
-	i.Dex = i.Dex - 3
-	i.App = i.App - 10
-	i.Mv = i.Mv - 2
+	strDebuff := findOptimumDebuff(3, i.Str)
+	i.Str = i.Str - strDebuff
+
+	conDebuff := findOptimumDebuff(3, i.Con)
+	i.Con = i.Con - conDebuff
+
+	dexDebuff := findOptimumDebuff(3, i.Dex)
+	i.Dex = i.Dex - dexDebuff
+
+	mvDebuff := findOptimumDebuff(2, i.Mv)
+	i.Mv = i.Mv - mvDebuff
+
+	appDebuff := findOptimumDebuff(10, i.App)
+	i.App = i.App - appDebuff
+
 	i.eduImprovementCheck()
 	i.eduImprovementCheck()
 	i.eduImprovementCheck()
 }
 
 func (i *Investigator) sixtiesModifier() {
-	i.Str = i.Str - 7
-	i.Con = i.Con - 1
-	i.Dex = i.Dex - 7
-	i.App = i.Age - 15
-	i.Mv = i.Mv - 3
+
+	strDebuff := findOptimumDebuff(7, i.Str)
+	i.Str = i.Str - strDebuff
+
+	conDebuff := findOptimumDebuff(1, i.Con)
+	i.Con = i.Con - conDebuff
+
+	dexDebuff := findOptimumDebuff(7, i.Dex)
+	i.Dex = i.Dex - dexDebuff
+
+	mvDebuff := findOptimumDebuff(3, i.Mv)
+	i.Mv = i.Mv - mvDebuff
+
+	appDebuff := findOptimumDebuff(15, i.App)
+	i.App = i.App - appDebuff
+
 	i.eduImprovementCheck()
 	i.eduImprovementCheck()
 	i.eduImprovementCheck()
@@ -188,11 +237,22 @@ func (i *Investigator) sixtiesModifier() {
 }
 
 func (i *Investigator) seventiesModifier() {
-	i.Str = i.Str - 13
-	i.Con = i.Con - 13
-	i.Dex = i.Dex - 13
-	i.App = i.App - 20
-	i.Mv = i.Mv - 4
+
+	strDebuff := findOptimumDebuff(13, i.Str)
+	i.Str = i.Str - strDebuff
+
+	conDebuff := findOptimumDebuff(13, i.Con)
+	i.Con = i.Con - conDebuff
+
+	dexDebuff := findOptimumDebuff(13, i.Dex)
+	i.Dex = i.Dex - dexDebuff
+
+	mvDebuff := findOptimumDebuff(4, i.Mv)
+	i.Mv = i.Mv - mvDebuff
+
+	appDebuff := findOptimumDebuff(20, i.App)
+	i.App = i.App - appDebuff
+
 	i.eduImprovementCheck()
 	i.eduImprovementCheck()
 	i.eduImprovementCheck()
@@ -200,11 +260,22 @@ func (i *Investigator) seventiesModifier() {
 }
 
 func (i *Investigator) eightiesModifier() {
-	i.Str = i.Str - 13
-	i.Con = i.Con - 13
-	i.Dex = i.Dex - 13
-	i.App = i.App - 25
-	i.Mv = i.Mv - 5
+
+	strDebuff := findOptimumDebuff(13, i.Str)
+	i.Str = i.Str - strDebuff
+
+	conDebuff := findOptimumDebuff(13, i.Con)
+	i.Con = i.Con - conDebuff
+
+	dexDebuff := findOptimumDebuff(13, i.Dex)
+	i.Dex = i.Dex - dexDebuff
+
+	mvDebuff := findOptimumDebuff(5, i.Mv)
+	i.Mv = i.Mv - mvDebuff
+
+	appDebuff := findOptimumDebuff(25, i.App)
+	i.App = i.App - appDebuff
+
 	i.eduImprovementCheck()
 	i.eduImprovementCheck()
 	i.eduImprovementCheck()
