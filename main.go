@@ -14,9 +14,8 @@ func main() {
 	pedro.SetBirthplace("Boston")
 	pedro.SetResidence("New York")
 	pedro.SetOccupation("Investigator")
-	investigators.PrintInvestigator(pedro)
 	pedro.AccountForAgeModifiers()
-	fmt.Println()
+	pedro.SetDescription()
 	fmt.Println()
 	investigators.PrintInvestigator(pedro)
 

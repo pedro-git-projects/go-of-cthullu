@@ -27,6 +27,7 @@ type Investigator struct {
 	San          int
 	Mv           int
 	CreditRating int
+	Description  Description
 }
 
 func (i *Investigator) DetermineCharacteristics() {
@@ -322,4 +323,12 @@ func PrintInvestigator(i Investigator) {
 	fmt.Printf("Your sanity is %d\n", i.San)
 	fmt.Printf("Your move rate is %d\n", i.Mv)
 	fmt.Printf("Your credit rating is %d\n", i.CreditRating)
+	fmt.Printf("With regards to strenght you are %s\n", i.Description.strDescription)
+	fmt.Printf("You%s\n", i.Description.conDescription)
+	fmt.Printf("With regards to appearence you are %s\n", i.Description.appDescription)
+	fmt.Printf("You %s\n", i.Description.intDescription)
+	fmt.Printf("You are%s\n", i.Description.sizDescription)
+	fmt.Printf("You%s\n", i.Description.powDescription)
+	fmt.Printf("You%s\n", i.Description.dexDescription)
+	fmt.Printf("You%s\n", i.Description.eduDescription)
 }
