@@ -3,7 +3,7 @@ package main
 import (
 	"bufio"
 	"fmt"
-	"log"
+	"net/http"
 	"os"
 	"strings"
 
@@ -38,11 +38,6 @@ func main() {
 	fmt.Println()
 	investigators.PrintInvestigator(character)
 
-	f, err := os.Create("character.txt")
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer f.Close()
-
-	character.WriteInvetigator(f)
+	http.HandleFunc("/", character.WriteHandler)
+	http.ListenAndServe(":8080", nil)
 }

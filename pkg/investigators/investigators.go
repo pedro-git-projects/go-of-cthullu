@@ -2,6 +2,7 @@ package investigators
 
 import (
 	"fmt"
+	"net/http"
 	"os"
 
 	"github.com/pedro-git-projects/go-of-cthullu/pkg/dice"
@@ -334,6 +335,36 @@ func PrintInvestigator(i Investigator) {
 	fmt.Printf("You%s\n", i.Description.eduDescription)
 }
 
+func (i Investigator) WriteInvetigatorWeb(w http.ResponseWriter) {
+	fmt.Fprintf(w, "Your name is %s\n", i.Name)
+	fmt.Fprintf(w, "Your age is %d\n", i.Age)
+	fmt.Fprintf(w, "Your birthplace is %s\n", i.Birthplace)
+	fmt.Fprintf(w, "Your residence  is %s\n", i.Residence)
+	fmt.Fprintf(w, "Your occupation  is %s\n", i.Occupation)
+	fmt.Fprintf(w, "Your strengh is %d\n", i.Str)
+	fmt.Fprintf(w, "Your constitution is %d\n", i.Con)
+	fmt.Fprintf(w, "Your power is %d\n", i.Pow)
+	fmt.Fprintf(w, "Your dexterity is %d\n", i.Dex)
+	fmt.Fprintf(w, "Your appearence is %d\n", i.App)
+	fmt.Fprintf(w, "Your size is %d\n", i.Siz)
+	fmt.Fprintf(w, "Your intelligence is %d\n", i.Int)
+	fmt.Fprintf(w, "Your education %d\n", i.Edu)
+	fmt.Fprintf(w, "Your luck is %d\n", i.Luck)
+	fmt.Fprintf(w, "Your magic points are %d\n", i.Mp)
+	fmt.Fprintf(w, "Your damage bonus is %d\n", i.Db)
+	fmt.Fprintf(w, "Your hit points are %d\n", i.Hp)
+	fmt.Fprintf(w, "Your sanity is %d\n", i.San)
+	fmt.Fprintf(w, "Your move rate is %d\n", i.Mv)
+	fmt.Fprintf(w, "With regards to strenght you are %s\n", i.Description.strDescription)
+	fmt.Fprintf(w, "You%s\n", i.Description.conDescription)
+	fmt.Fprintf(w, "With regards to appearence you are %s\n", i.Description.appDescription)
+	fmt.Fprintf(w, "You %s\n", i.Description.intDescription)
+	fmt.Fprintf(w, "You are%s\n", i.Description.sizDescription)
+	fmt.Fprintf(w, "You%s\n", i.Description.powDescription)
+	fmt.Fprintf(w, "You%s\n", i.Description.dexDescription)
+	fmt.Fprintf(w, "You%s\n", i.Description.eduDescription)
+}
+
 func (i Investigator) WriteInvetigator(f *os.File) {
 	fmt.Fprintf(f, "Your name is %s\n", i.Name)
 	fmt.Fprintf(f, "Your age is %d\n", i.Age)
@@ -373,6 +404,10 @@ func CreateInvestigator(i *Investigator, name string, age int, birth string, res
 	i.SetOccupation(occupation)
 	i.AccountForAgeModifiers()
 	i.SetDescription()
+}
+
+func (i *Investigator) WriteHandler(w http.ResponseWriter, r *http.Request) {
+	i.WriteInvetigatorWeb(w)
 }
 
 // TODO: Adicionar os caps máximos para cada skills| backstory| finanças| combat values
