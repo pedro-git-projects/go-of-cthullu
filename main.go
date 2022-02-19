@@ -1,22 +1,35 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
+	"os"
 
 	"github.com/pedro-git-projects/go-of-cthullu/pkg/investigators"
 )
 
 func main() {
-	var pedro investigators.Investigator
-	pedro.DetermineCharacteristics()
-	pedro.SetName("Pedro")
-	pedro.SetAge(80)
-	pedro.SetBirthplace("Boston")
-	pedro.SetResidence("New York")
-	pedro.SetOccupation("Investigator")
-	pedro.AccountForAgeModifiers()
-	pedro.SetDescription()
+	var character investigators.Investigator
+	r := bufio.NewReader(os.Stdout)
+	fmt.Println("Please input the name of your investigator:")
+	name, _ := r.ReadString('\n')
+
+	fmt.Println("Please input the age of your investigator:")
+	var age int
+	_, _ = fmt.Scanf("%d", &age)
+
+	fmt.Println("Please input the birthplace of your investigator:")
+	birth, _ := r.ReadString('\n')
+
+	fmt.Println("Please input the residence of your investigator:")
+	residence, _ := r.ReadString('\n')
+
+	fmt.Println("Please input the occupation of your investigator:")
+	occupation, _ := r.ReadString('\n')
+
+	investigators.CreateInvestigator(&character, name, age, birth, residence, occupation)
+
 	fmt.Println()
-	investigators.PrintInvestigator(pedro)
+	investigators.PrintInvestigator(character)
 
 }

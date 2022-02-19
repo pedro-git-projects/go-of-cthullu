@@ -7,28 +7,29 @@ import (
 )
 
 type Investigator struct {
-	Name         string
-	Age          int
-	Residence    string
-	Birthplace   string
-	Occupation   string
-	Str          int
-	Con          int
-	Pow          int
-	Dex          int
-	App          int
-	Siz          int
-	Int          int
-	Edu          int
-	Luck         int
-	Mp           int
-	Db           int
-	Hp           int
-	San          int
-	Mv           int
-	CreditRating int
-	Description  Description
+	Name        string
+	Age         int
+	Residence   string
+	Birthplace  string
+	Occupation  string
+	Str         int
+	Con         int
+	Pow         int
+	Dex         int
+	App         int
+	Siz         int
+	Int         int
+	Edu         int
+	Luck        int
+	Mp          int
+	Db          int
+	Hp          int
+	San         int
+	Mv          int
+	Description Description
 }
+
+// TODO credit rating
 
 func (i *Investigator) DetermineCharacteristics() {
 	i.Str = rollStr()
@@ -322,7 +323,6 @@ func PrintInvestigator(i Investigator) {
 	fmt.Printf("Your hit points are %d\n", i.Hp)
 	fmt.Printf("Your sanity is %d\n", i.San)
 	fmt.Printf("Your move rate is %d\n", i.Mv)
-	fmt.Printf("Your credit rating is %d\n", i.CreditRating)
 	fmt.Printf("With regards to strenght you are %s\n", i.Description.strDescription)
 	fmt.Printf("You%s\n", i.Description.conDescription)
 	fmt.Printf("With regards to appearence you are %s\n", i.Description.appDescription)
@@ -332,3 +332,16 @@ func PrintInvestigator(i Investigator) {
 	fmt.Printf("You%s\n", i.Description.dexDescription)
 	fmt.Printf("You%s\n", i.Description.eduDescription)
 }
+
+func CreateInvestigator(i *Investigator, name string, age int, birth string, residence string, occupation string) {
+	i.DetermineCharacteristics()
+	i.SetName(name)
+	i.SetAge(age)
+	i.SetBirthplace(birth)
+	i.SetResidence(residence)
+	i.SetOccupation(occupation)
+	i.AccountForAgeModifiers()
+	i.SetDescription()
+}
+
+// TODO: Adicionar os caps máximos para cada skills| backstory| finanças| combat values
