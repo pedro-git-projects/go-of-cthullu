@@ -1,0 +1,27 @@
+Your name is Jackl
+Your age is 26
+Your birthplace is Boston
+Your residence  is New York
+Your occupation  is Archeologist
+Your strengh is 90
+Your constitution is 75
+Your power is 90
+Your dexterity is 45
+Your appearence is 60
+Your size is 40
+Your intelligence is 40
+Your education 60
+Your luck is 30
+Your magic points are 18
+Your damage bonus is 0
+Your hit points are 11
+Your sanity is 90
+Your move rate is 8
+With regards to strenght you are certainly one of the strongest people most met.
+You have average health.
+With regards to appearence you are average.
+You  are a slow learner, able to undertake only the most basic math, or read beginner-level books.
+You are an average human size (moderate weight and height) (170lbs/75kg).
+You are strong willed, driven, a high potential to connect with the unseen and magical.
+You have average human dexterity.
+You are a high school graduate.

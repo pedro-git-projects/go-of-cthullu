@@ -2,6 +2,7 @@ package investigators
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/pedro-git-projects/go-of-cthullu/pkg/dice"
 )
@@ -331,6 +332,36 @@ func PrintInvestigator(i Investigator) {
 	fmt.Printf("You%s\n", i.Description.powDescription)
 	fmt.Printf("You%s\n", i.Description.dexDescription)
 	fmt.Printf("You%s\n", i.Description.eduDescription)
+}
+
+func (i Investigator) WriteInvetigator(f *os.File) {
+	fmt.Fprintf(f, "Your name is %s\n", i.Name)
+	fmt.Fprintf(f, "Your age is %d\n", i.Age)
+	fmt.Fprintf(f, "Your birthplace is %s\n", i.Birthplace)
+	fmt.Fprintf(f, "Your residence  is %s\n", i.Residence)
+	fmt.Fprintf(f, "Your occupation  is %s\n", i.Occupation)
+	fmt.Fprintf(f, "Your strengh is %d\n", i.Str)
+	fmt.Fprintf(f, "Your constitution is %d\n", i.Con)
+	fmt.Fprintf(f, "Your power is %d\n", i.Pow)
+	fmt.Fprintf(f, "Your dexterity is %d\n", i.Dex)
+	fmt.Fprintf(f, "Your appearence is %d\n", i.App)
+	fmt.Fprintf(f, "Your size is %d\n", i.Siz)
+	fmt.Fprintf(f, "Your intelligence is %d\n", i.Int)
+	fmt.Fprintf(f, "Your education %d\n", i.Edu)
+	fmt.Fprintf(f, "Your luck is %d\n", i.Luck)
+	fmt.Fprintf(f, "Your magic points are %d\n", i.Mp)
+	fmt.Fprintf(f, "Your damage bonus is %d\n", i.Db)
+	fmt.Fprintf(f, "Your hit points are %d\n", i.Hp)
+	fmt.Fprintf(f, "Your sanity is %d\n", i.San)
+	fmt.Fprintf(f, "Your move rate is %d\n", i.Mv)
+	fmt.Fprintf(f, "With regards to strenght you are %s\n", i.Description.strDescription)
+	fmt.Fprintf(f, "You%s\n", i.Description.conDescription)
+	fmt.Fprintf(f, "With regards to appearence you are %s\n", i.Description.appDescription)
+	fmt.Fprintf(f, "You %s\n", i.Description.intDescription)
+	fmt.Fprintf(f, "You are%s\n", i.Description.sizDescription)
+	fmt.Fprintf(f, "You%s\n", i.Description.powDescription)
+	fmt.Fprintf(f, "You%s\n", i.Description.dexDescription)
+	fmt.Fprintf(f, "You%s\n", i.Description.eduDescription)
 }
 
 func CreateInvestigator(i *Investigator, name string, age int, birth string, residence string, occupation string) {
