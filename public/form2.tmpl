@@ -1,0 +1,45 @@
+{{define "form2"}}
+<div class="field" method="post">
+  <label class="label">Name</label>
+  <div class="control">
+    <input class="input" name="name" type="text" placeholder="e.g Charles Dexter Ward">
+  </div>
+</div>
+
+<div class="field" method="post">
+  <label class="label">Age</label>
+  <div class="control">
+    <input class="input" name="age" type="number" placeholder="e.g. 26">
+  </div>
+</div>
+
+<div class="field" method="post">
+  <label class="label">Residence</label>
+  <div class="control">
+    <input class="input" name="residence" type="text" placeholder="e.g. Providence">
+  </div>
+</div>
+
+<div class="field" method="post">
+  <label class="label">Birthplace</label>
+  <div class="control">
+    <input class="input" name="birthplace" type="text" placeholder="e.g. Newport">
+  </div>
+</div>
+
+
+<div class="field" method="post">
+  <label class="label">Occupation</label>
+  <div class="control">
+    <input class="input" name="occupation" type="text" placeholder="e.g. Archeologist">
+  </div>
+</div>
+
+<div class="control">
+  <button type="submit" class="button is-primary">Submit</button>
+</div>
+
+	<h1>{{.Name}}</h1>
+	<h2>{{.Age}}</h2>
+	<h1>test</h1>
+{{end}}

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Go of Cthullu</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">	
+	</head>
+	<body>
+		{{template "header"}}
+		<form method="post">
+			<div class="form-group">
+				<label for="name">Investigator's name</label>
+				<input type="text" name="name" class="form-control" id="name" aria-describedby="input name" placeholder="Enter name">
+			</div>
+			<div class="form-group">
+				<label for="age">Investigator's age</label>
+				<input type="number" name="age" class="form-control" id="age" placeholder="Enter age">
+			</div>
+			<div class="form-group">
+				<label for="residence">Investigator's residence</label>
+				<input type="text" class="form-control" name="residence" id="residence" aria-describedby="input residence" placeholder="Enter residence">
+			</div>
+			<div class="form-group">
+				<label for="birthplace">Investigator's birthplace</label>
+				<input type="text" class="form-control" name="birthplace" id="birthplace" aria-describedby="input birthplace" placeholder="Enter birthplace">
+			</div>
+			<div class="form-group">
+				<label for="occupation">Investigator's occupation</label>
+				<input type="text" class="form-control" name="occupation" id="occupation" aria-describedby="input occupation" placeholder="Enter occupation">
+			</div>
+			<button type="submit" class="btn btn-primary">Generate</button>
+		</form>
+
+		<br>
+		<div  class="random">
+			<ul class="list-group">
+				<li class="list-group-item">Name: {{.Name}}</li>
+				<li class="list-group-item">Age: {{.Age}}</li>
+				<li class="list-group-item">Residence: {{.Residence}}</li>
+				<li class="list-group-item">Birthplace: {{.Birthplace}}</li>
+				<li class="list-group-item">Occupation: {{.Occupation}}</li>
+				<li class="list-group-item">Str: {{.Str}}</li>
+				<li class="list-group-item">Con: {{.Con}}</li>
+				<li class="list-group-item">Pow: {{.Pow}}</li>
+				<li class="list-group-item">Dex: {{.Dex}}</li>
+				<li class="list-group-item">App: {{.App}}</li>
+				<li class="list-group-item">Siz: {{.Siz}}</li>
+				<li class="list-group-item">Int: {{.Int}}</li>
+				<li class="list-group-item">Edu: {{.Edu}}</li>
+				<li class="list-group-item">Luck: {{.Luck}}</li>
+				<li class="list-group-item">Hp: {{.Hp}}</li>
+				<li class="list-group-item">Mp: {{.Mp}}</li>
+				<li class="list-group-item">San: {{.San}}</li>
+				<li class="list-group-item">Move Rate: {{.Mv}}</li>
+				<li class="list-group-item">With regards to strenght you are {{.Description.StrDescription}}</li>
+				<li class="list-group-item">You {{.Description.ConDescription}}</li>
+				<li class="list-group-item">With respect to appearence you are {{.Description.ConDescription}}</li>
+				<li class="list-group-item">You {{.Description.IntDescription}}</li>
+				<li class="list-group-item">You are {{.Description.SizDescription}}</li>
+				<li class="list-group-item">You {{.Description.PowDescription}}</li>
+				<li class="list-group-item">You {{.Description.DexDescription}}</li>
+				<li class="list-group-item">You {{.Description.EduDescription}}</li>
+			</ul>	
+		</div>
+	{{template "footer"}}
+	</body>
+</html>
